@@ -7,15 +7,8 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
-    <div id="app">
-        <openai-component></openai-component>
-    </div>
+    <div id="app"></div>
     
-    <script src="openai-component.js"></script>
-    <script>
-        const app = Vue.createApp({})
-        app.component('openai-component', OpenAIComponent)
-        app.mount('#app')
-    </script>
+    <script src="app.js" type="module"></script>
 </body>
 </html>
