@@ -28,32 +28,21 @@ const OpenAIComponent = {
             this.response = '正在生成回應...'
 
             try {
-                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                const response = await fetch('http://localhost:5000/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer Your-api-key'  // 請替換為你的實際 API 密鑰
                     },
-                    body: JSON.stringify({
-                        model: "gpt-3.5-turbo",
-                        messages: [
-                            {role: "system", content: "You are a helpful assistant."},
-                            {role: "user", content: this.prompt}
-                        ]
-                    })
+                    body: JSON.stringify({ prompt: this.prompt })
                 })
 
                 const data = await response.json()
 
                 if (!response.ok) {
-                    throw new Error(`API 錯誤: ${data.error?.message || response.statusText}`)
+                    throw new Error(`API 錯誤: ${data.error || response.statusText}`)
                 }
 
-                if (data.choices && data.choices.length > 0 && data.choices[0].message) {
-                    this.response = data.choices[0].message.content
-                } else {
-                    throw new Error('API 回應格式不符合預期')
-                }
+                this.response = data.response
             } catch (error) {
                 this.response = '發生錯誤：' + error.message
                 this.isError = true
@@ -65,7 +54,7 @@ const OpenAIComponent = {
     }
 }
 
-// 添加樣式
+// 添加樣式（保持不變）
 const style = document.createElement('style')
 style.textContent = `
     body {
