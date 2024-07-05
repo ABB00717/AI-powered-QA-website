@@ -24,7 +24,10 @@ const app = Vue.createApp({
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ prompt: this.prompt })
+                    body: JSON.stringify({
+                        prompt: this.prompt,  // 修正：使用 this.prompt 而不是 userInput
+                        session_id: 'user123'  // 使用唯一的會話 ID
+                    }),
                 })
 
                 const data = await apiResponse.json()
